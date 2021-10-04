@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Quiz App</title>
+  <link rel="stylesheet" href="dist/styles.css" />
+  <script src="https://unpkg.com/vue@3.0.2"></script>
+</head>
+
+<body class="bg-gray-400">
+  <header class="">
+    <div class="container w-full mx-auto shadow-md p-5  flex  items-center">
+      <!-- <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+                <a class="mr-5 hover:text-gray-900">First Link</a>
+                <a class="mr-5 hover:text-gray-900">Second Link</a>
+                <a class="mr-5 hover:text-gray-900">Third Link</a>
+                <a class="hover:text-gray-900">Fourth Link</a>
+              </nav> -->
+      <a class="flex-1 items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+          viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+      </a>
+      <div class="inline-flex sm:justify-end align-right">
+        <!-- restart -->
+        <!-- <button onClick="window.location.reload();" class="inline-flex mr-5 items-center text-white justify-end bg-indigo-500 border-0 py-2 px-4 uppercase  hover:bg-indigo-600 rounded mt-4 md:mt-0">restart</button> -->
+        <!-- finish -->
+        <!-- <button
+                v-show="index != 0"
+
+                 @click="showResults" 
+                 class="inline-flex items-center text-white justify-end bg-indigo-500 border-0 py-2 px-4 uppercase  hover:bg-indigo-600 rounded mt-4 md:mt-0">finish</button> -->
+      </div>
+    </div>
+  </header>
+
+
+  <!-- start of content -->
+
+
+
+  <div class="flex w-full mt-10 justify-center items-center" id="app">
+    <div class="w-full max-w-xl">
+      <h1 class="font-bold text-4xl text-center uppercase text-indigo-700">Simple Quiz</h1>
+      <div class="bg-white p-12 rounded-lg shadow-lg w-full mt-8">
+        <div v-if="index < count">
+          <p class="text-2xl font-bold"> {{ questions[index] ["question"] }} </p>
+
+
+          <label :for="key" @change="answered($event)" v-for="answer, key in questions[index] ['answers']"
+            class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg" :class="{'hover:bg-indigo-100 cursor-pointer': selectedAnswer == ''}, 
+                  {'bg-red-200' : selectedAnswer == key },
+                   {'bg-green-200' : key == questions[index] ['correctAnswer'] && selectedAnswer != '' }">
+
+            <input type="radio" class="hidden" :id="key" :value="key" @change="answered($event)"
+              :disabled="selectedAnswer != '' " />
+
+            {{ answer }}
+
+          </label>
+
+
+
+          <div class="mt-10">
+            <!-- previous button -->
+            <button v-show="selectedAnswer !='' " @click=index--
+              class="text-white mr-10  bg-indigo-500 border-0 py-2 px-4 uppercase  hover:bg-indigo-600 rounded-full">&lt;
+              previous </button>
+            <!-- next button -->
+            <button v-show="selectedAnswer !='' && index < count-1 " @click="nextQuestion"
+              class="text-white float-right bg-indigo-500 border-0 py-2 px-4 uppercase  hover:bg-indigo-600 rounded-full">next
+              &gt;</button>
+
+            <!-- finish button -->
+            <button v-show="selectedAnswer !='' && index == count-1 " @click="nextQuestion"
+              class="text-white float-right bg-indigo-500 border-0 py-2 px-4 uppercase  hover:bg-indigo-600 rounded-full">finish</button>
+          </div>
+
+
+
+
+        </div>
+         <div v-else> Results</div>
+      </div>
+    </div>
+
+  </div>
+ 
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>
